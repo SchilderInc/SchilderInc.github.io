@@ -19,26 +19,49 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
-header {
+/* Hero Section */
+.hero {
     background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     color: white;
-    padding: 80px 0;
+    padding: 80px 20px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.hero h1 {
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.headline {
-    font-size: 1.4rem;
-    font-weight: 400;
+.tagline {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 12px;
     opacity: 0.98;
+    line-height: 1.4;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.9;
 }
 
 /* Main Content */
@@ -180,12 +203,25 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    header h1 {
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hero h1 {
         font-size: 2.2rem;
     }
     
-    .headline {
+    .tagline {
         font-size: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
     }
     
     main {
