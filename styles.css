@@ -192,6 +192,45 @@ p {
     font-size: 1.2rem;
 }
 
+/* Current Focus Section */
+.focus-intro {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    color: #374151;
+    line-height: 1.8;
+}
+
+.focus-subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
+
+.focus-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.focus-list li {
+    padding: 10px 0;
+    padding-left: 30px;
+    color: #374151;
+    font-size: 1.05rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.focus-list li:before {
+    content: "→ ";
+    color: #2563eb;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
 /* Education */
 .education-item {
     margin-bottom: 20px;
