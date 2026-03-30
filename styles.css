@@ -289,6 +289,116 @@ p {
     text-decoration: underline;
 }
 
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+/* Login Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-box {
+    position: relative;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-box h3 {
+    color: #1e40af;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.modal-box input[type="password"] {
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.modal-box input[type="password"]:focus {
+    border-color: #2563eb;
+}
+
+.modal-box button {
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-box button:hover {
+    background-color: #1d4ed8;
+}
+
+.login-error {
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Profile photo clickable */
+.profile-photo {
+    cursor: pointer;
+}
+
+/* Private Section */
+.private-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.private-header h2 {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.logout-btn {
+    padding: 6px 16px;
+    background: transparent;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
 /* Footer */
 footer {
     text-align: center;

@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-box">
+            <h3>Private Access</h3>
+            <input type="password" id="password-input" placeholder="Password" autocomplete="current-password">
+            <p id="login-error" class="login-error hidden">Incorrect password</p>
+            <button id="login-btn">Enter</button>
+        </div>
+    </div>
+
     <header class="hero">
         <div class="hero-content">
-            <img src="profile-photo.jpg" alt="Bruce Schilder" class="profile-photo">
+            <img src="profile-photo.jpg" alt="Bruce Schilder" class="profile-photo" id="profile-photo" title="">
             <h1>Bruce Schilder</h1>
             <p class="tagline">Innovating at the Intersection of Banking & Technology</p>
             <p class="subtitle">Head of Open Banking, Technology at Fiserv</p>
@@ -100,6 +111,15 @@
                 </div>
                 <p class="contact">Email: <a href="mailto:Bruce@schilderinc.com">Bruce@schilderinc.com</a></p>
             </section>
+
+            <!-- Private Section: only visible after login -->
+            <section id="private-section" class="card full-width hidden">
+                <div class="private-header">
+                    <h2>Private</h2>
+                    <button id="logout-btn" class="logout-btn">Lock</button>
+                </div>
+                <p class="section-intro">This section is private. Content coming soon.</p>
+            </section>
         </div>
     </main>
 
@@ -108,5 +128,70 @@
             <p>&copy; 2026 Bruce Schilder. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // To change password: generate SHA-256 hash of your new password and replace the value below.
+        // Run in browser console: crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
+        //   .then(b => console.log(Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')))
+        const CREDENTIALS = [
+            '22cecd350cb4f7074b3b88a6cc1bac2e5b97b59819cf060f26f0c4da256dcbaa' // SchilderInc2026
+        ];
+
+        async function sha256(message) {
+            const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(message));
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function showPrivateSection() {
+            document.getElementById('private-section').classList.remove('hidden');
+            document.getElementById('private-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('password-input').value = '';
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        document.getElementById('profile-photo').addEventListener('click', () => {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                showPrivateSection();
+            } else {
+                document.getElementById('login-modal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('password-input').focus(), 50);
+            }
+        });
+
+        document.getElementById('modal-overlay').addEventListener('click', hideModal);
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            const password = document.getElementById('password-input').value;
+            if (!password) return;
+            const hash = await sha256(password);
+            if (CREDENTIALS.includes(hash)) {
+                sessionStorage.setItem('authenticated', 'true');
+                hideModal();
+                showPrivateSection();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        });
+
+        document.getElementById('password-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('login-btn').click();
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.removeItem('authenticated');
+            document.getElementById('private-section').classList.add('hidden');
+        });
+
+        // Restore session on page load
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            showPrivateSection();
+        }
+    </script>
 </body>
 </html>
