@@ -192,6 +192,15 @@ p {
     font-size: 1.2rem;
 }
 
+.cert-institution {
+    display: block;
+    font-size: 0.9rem;
+    color: #9ca3af;
+    font-weight: 400;
+    margin-top: 2px;
+    padding-left: 28px;
+}
+
 /* Current Focus Section */
 .focus-intro {
     font-size: 1.05rem;
