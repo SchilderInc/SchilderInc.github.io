@@ -173,32 +173,14 @@ p {
 }
 
 /* Certifications */
-#certifications ul {
-    list-style: none;
-    padding-left: 0;
+.cert-item {
+    margin-bottom: 20px;
 }
 
-#certifications li {
-    padding: 12px 0;
-    color: #374151;
+.cert-name {
     font-size: 1.1rem;
-}
-
-#certifications li:before {
-    content: "✓ ";
-    color: #2563eb;
-    font-weight: bold;
-    margin-right: 12px;
-    font-size: 1.2rem;
-}
-
-.cert-institution {
-    display: block;
-    font-size: 0.9rem;
-    color: #9ca3af;
-    font-weight: 400;
-    margin-top: 2px;
-    padding-left: 28px;
+    color: #374151;
+    margin-bottom: 4px;
 }
 
 /* Current Focus Section */
