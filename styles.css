@@ -147,6 +147,35 @@ h2 {
     font-weight: 700;
 }
 
+/* Section header with optional logo */
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #e5e7eb;
+}
+
+.section-head h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.section-logo {
+    max-height: 28px;
+    max-width: 120px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.35);
+    transition: filter 0.3s ease;
+}
+
+.card:hover .section-logo {
+    filter: grayscale(0%) opacity(0.85);
+}
+
 h3 {
     color: #111827;
     font-size: 1.4rem;
