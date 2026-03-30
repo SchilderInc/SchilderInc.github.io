@@ -43,19 +43,23 @@
       // ── Great-grandparents (placeholder for future additions) ──
 
       // ── Paternal grandparents ──────────────────────────────────
-      herbert: { name: 'Herbert Schilder', dob: null,        dod: null,          photo: null },
-      cynthia: { name: 'Cynthia Meltzer',  dob: null,        dod: null,          photo: null },
+      herbert: { name: 'Herbert Schilder', dob: null,          dod: null,          photo: null },
+      cynthia: { name: 'Cynthia Meltzer',  dob: null,          dod: null,          photo: null },
 
       // ── Maternal grandparents ──────────────────────────────────
-      william: { name: 'William Farber',   dob: null,        dod: null,          photo: null },
-      terry:   { name: 'Terry Grief',      dob: null,        dod: null,          photo: null },
+      william: { name: 'William Farber',   dob: null,          dod: null,          photo: null },
+      terry:   { name: 'Terry Grief',      dob: null,          dod: null,          photo: null },
 
       // ── Parents ────────────────────────────────────────────────
-      marc:    { name: 'Marc Schilder',    dob: '5/8/1955',  dod: null,          photo: null },
-      ann:     { name: 'Ann Farber',       dob: '4/1/1957',  dod: '12/17/2012',  photo: null },
+      marc:    { name: 'Marc Schilder',    dob: '5/8/1955',    dod: null,          photo: null },
+      ann:     { name: 'Ann Farber',       dob: '4/1/1957',    dod: '12/17/2012',  photo: null },
 
-      // ── Bruce ──────────────────────────────────────────────────
-      bruce:   { name: 'Bruce Schilder',   dob: null,        dod: null,          photo: '../profile-photo.jpg' },
+      // ── Bruce & Jodi ───────────────────────────────────────────
+      bruce:   { name: 'Bruce Schilder',   dob: '7/31/1985',   dod: null,          photo: '../profile-photo.jpg' },
+      jodi:    { name: 'Jodi Reischer',    dob: '8/8/1984',    dod: null,          photo: null },
+
+      // ── Children ───────────────────────────────────────────────
+      lacie:   { name: 'Lacie Schilder',   dob: '8/11/2020',   dod: null,          photo: null },
     };
 
     /* Generation rows — oldest first.
@@ -69,8 +73,11 @@
       { label: 'Parents', units: [
           { type: 'couple', ids: ['marc', 'ann'] },
       ]},
-      { label: 'Bruce', units: [
-          { type: 'single', ids: ['bruce'] },
+      { label: 'Bruce & Jodi', units: [
+          { type: 'couple', ids: ['bruce', 'jodi'] },
+      ]},
+      { label: 'Children', units: [
+          { type: 'single', ids: ['lacie'] },
       ]},
     ];
 
@@ -82,6 +89,7 @@
       { fromUnit: 'herbert', toPerson: 'marc'  },
       { fromUnit: 'william', toPerson: 'ann'   },
       { fromUnit: 'marc',    toPerson: 'bruce' },
+      { fromUnit: 'bruce',   toPerson: 'lacie' },
     ];
 
     /* =============================================================
