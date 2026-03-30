@@ -22,17 +22,155 @@
             <h1>Family Tree</h1>
             <p>The Schilder family.</p>
         </div>
-
-        <div class="card placeholder-card">
-            <p class="placeholder-text">Family tree coming soon.</p>
+        <div class="tree-scroll">
+            <div class="tree-container" id="tree"></div>
         </div>
     </div>
 
     <script>
-        document.getElementById('lock-btn').addEventListener('click', () => {
-            sessionStorage.removeItem('authenticated');
-            window.location.replace('/index.html');
-        });
+    /* =============================================================
+       FAMILY DATA
+       ─────────────────────────────────────────────────────────────
+       To add a person:   add an entry to PEOPLE
+       To add a generation: prepend a row to GENERATIONS
+       To add a connection: add an entry to CONNECTIONS
+
+       Photo paths are relative to /private/
+         e.g.  photo: 'photos/marc.jpg'
+       dob / dod format: 'M/D/YYYY'   null = unknown
+       ============================================================= */
+    const PEOPLE = {
+      // ── Great-grandparents (placeholder for future additions) ──
+
+      // ── Paternal grandparents ──────────────────────────────────
+      herbert: { name: 'Herbert Schilder', dob: null,        dod: null,          photo: null },
+      cynthia: { name: 'Cynthia Meltzer',  dob: null,        dod: null,          photo: null },
+
+      // ── Maternal grandparents ──────────────────────────────────
+      william: { name: 'William Farber',   dob: null,        dod: null,          photo: null },
+      terry:   { name: 'Terry Grief',      dob: null,        dod: null,          photo: null },
+
+      // ── Parents ────────────────────────────────────────────────
+      marc:    { name: 'Marc Schilder',    dob: '5/8/1955',  dod: null,          photo: null },
+      ann:     { name: 'Ann Farber',       dob: '4/1/1957',  dod: '12/17/2012',  photo: null },
+
+      // ── Bruce ──────────────────────────────────────────────────
+      bruce:   { name: 'Bruce Schilder',   dob: null,        dod: null,          photo: '../profile-photo.jpg' },
+    };
+
+    /* Generation rows — oldest first.
+       Each unit: { type: 'couple'|'single', ids: [id, ...] }
+       The unit's lookup key is ids[0].                            */
+    const GENERATIONS = [
+      { label: 'Grandparents', units: [
+          { type: 'couple', ids: ['herbert', 'cynthia'] },
+          { type: 'couple', ids: ['william', 'terry']   },
+      ]},
+      { label: 'Parents', units: [
+          { type: 'couple', ids: ['marc', 'ann'] },
+      ]},
+      { label: 'Bruce', units: [
+          { type: 'single', ids: ['bruce'] },
+      ]},
+    ];
+
+    /* Connections — SVG line from parent unit's center-bottom
+       to target person card's center-top.
+       fromUnit = ids[0] of the parent unit
+       toPerson = id of the child person                           */
+    const CONNECTIONS = [
+      { fromUnit: 'herbert', toPerson: 'marc'  },
+      { fromUnit: 'william', toPerson: 'ann'   },
+      { fromUnit: 'marc',    toPerson: 'bruce' },
+    ];
+
+    /* =============================================================
+       RENDERING
+       ============================================================= */
+    function personCard(id) {
+      const p = PEOPLE[id];
+      const deceased = !!p.dod;
+      let dates = null;
+      if (p.dob && p.dod) dates = `${p.dob} — ${p.dod}`;
+      else if (p.dob)      dates = `b. ${p.dob}`;
+
+      return `
+        <div class="person-card${deceased ? ' deceased' : ''}" data-person="${id}">
+          <div class="person-photo">
+            ${p.photo
+              ? `<img src="${p.photo}" alt="${p.name}"
+                      onerror="this.parentElement.innerHTML='<span class=\\'photo-q\\'>?</span>'">`
+              : `<span class="photo-q">?</span>`}
+          </div>
+          <div class="person-name">${p.name}</div>
+          ${dates ? `<div class="person-dates">${dates}</div>` : ''}
+        </div>`;
+    }
+
+    function render() {
+      const tree = document.getElementById('tree');
+      tree.innerHTML = GENERATIONS.map(gen => `
+        <div class="gen-row">
+          <div class="gen-label">${gen.label}</div>
+          <div class="gen-units">
+            ${gen.units.map(unit => `
+              <div class="family-unit" data-unit="${unit.ids[0]}">
+                ${unit.type === 'couple'
+                  ? `${personCard(unit.ids[0])}
+                     <div class="couple-connector">♥</div>
+                     ${personCard(unit.ids[1])}`
+                  : personCard(unit.ids[0])
+                }
+              </div>`).join('')}
+          </div>
+        </div>`).join('');
+
+      requestAnimationFrame(() => requestAnimationFrame(drawLines));
+    }
+
+    function drawLines() {
+      const tree = document.getElementById('tree');
+      const existing = tree.querySelector('.tree-svg');
+      if (existing) existing.remove();
+
+      const treeRect = tree.getBoundingClientRect();
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('tree-svg');
+      svg.setAttribute('width',  tree.offsetWidth);
+      svg.setAttribute('height', tree.offsetHeight);
+
+      CONNECTIONS.forEach(({ fromUnit, toPerson }) => {
+        const unitEl   = tree.querySelector(`[data-unit="${fromUnit}"]`);
+        const personEl = tree.querySelector(`[data-person="${toPerson}"]`);
+        if (!unitEl || !personEl) return;
+
+        const uRect = unitEl.getBoundingClientRect();
+        const pRect = personEl.querySelector('.person-photo').getBoundingClientRect();
+
+        const x1   = uRect.left + uRect.width / 2 - treeRect.left;
+        const y1   = uRect.bottom                  - treeRect.top;
+        const x2   = pRect.left + pRect.width / 2  - treeRect.left;
+        const y2   = pRect.top                     - treeRect.top;
+        const midY = (y1 + y2) / 2;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d',            `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`);
+        path.setAttribute('stroke',       '#d1d5db');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('fill',         'none');
+        svg.appendChild(path);
+      });
+
+      tree.appendChild(svg);
+    }
+
+    render();
+    window.addEventListener('resize', drawLines);
+
+    document.getElementById('lock-btn').addEventListener('click', () => {
+      sessionStorage.removeItem('authenticated');
+      window.location.replace('/index.html');
+    });
     </script>
 </body>
 </html>
