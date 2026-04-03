@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { signOut } from '@/lib/actions'
 
 interface NavItem {
   label: string
@@ -81,17 +82,18 @@ export default function Sidebar() {
           <span className="text-xs uppercase tracking-widest">New Estimation</span>
         </Link>
 
-        <div className="mt-6 pt-6 border-t border-slate-800">
-          <button
-            type="button"
-            className="flex items-center text-slate-400 hover:text-white transition-colors w-full"
-            onClick={() => { /* TODO: Supabase signOut */ }}
-          >
-            <span className="material-symbols-outlined mr-3" aria-hidden="true">logout</span>
-            <span className="text-sm font-semibold">Logout</span>
-          </button>
+          <div className="mt-6 pt-6 border-t border-slate-800">
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="flex items-center text-slate-400 hover:text-white transition-colors w-full"
+              >
+                <span className="material-symbols-outlined mr-3" aria-hidden="true">logout</span>
+                <span className="text-sm font-semibold">Logout</span>
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
   )
 }
