@@ -3,7 +3,21 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const PUBLIC_PATHS = ['/login', '/signup']
 
+// ── Demo / local dev bypass ────────────────────────────────────────────────────
+// When NEXT_PUBLIC_SUPABASE_URL is not set (or is the placeholder value from
+// .env.example), skip all auth checks so the app is fully browsable with seed
+// data.  Remove this block — or set SUPABASE_AUTH_REQUIRED=true — before going
+// to production.
+const SUPABASE_CONFIGURED =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project-ref')
+
 export async function middleware(request: NextRequest) {
+  // Pass everything through when Supabase isn't configured yet
+  if (!SUPABASE_CONFIGURED) {
+    return NextResponse.next({ request })
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -14,11 +28,12 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            supabaseResponse.cookies.set(name, value, options as any)
           )
         },
       },
