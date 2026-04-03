@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Material Symbols icon font rendering */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Signature brand gradient — used on primary CTA buttons and the app icon */
+.signature-gradient {
+  background: linear-gradient(135deg, #ff6b00 0%, #a04100 100%);
+}
+
+/* Focus ring — replaces browser default with on-brand style */
+@layer base {
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+
+  /* Normalize body background and text to M3 surface tokens */
+  body {
+    @apply bg-surface text-on-surface;
+  }
+}
