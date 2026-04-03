@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architectural Monolith | System Architect Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#d6e3ff","surface-tint": "#a04100","secondary": "#476083","tertiary-container": "#5b99f7","surface": "#f8f9fa","outline-variant": "#e2bfb0","primary-container": "#ff6b00","surface-container": "#edeeef","error-container": "#ffdad6","on-tertiary-fixed-variant": "#00468c","background": "#f8f9fa","secondary-fixed": "#d4e3ff","on-tertiary-fixed": "#001b3d","on-secondary-fixed": "#001c3a","outline": "#8e7164","on-surface": "#191c1d","surface-container-high": "#e7e8e9","tertiary": "#005db6","secondary-container": "#bdd6ff","surface-dim": "#d9dadb","error": "#ba1a1a","on-error-container": "#93000a","surface-container-highest": "#e1e3e4","secondary-fixed-dim": "#afc8f0","surface-variant": "#e1e3e4","on-background": "#191c1d","primary": "#a04100","surface-container-low": "#f3f4f5","on-primary": "#ffffff","tertiary-fixed-dim": "#a9c7ff","primary-fixed": "#ffdbcc","surface-container-lowest": "#ffffff","on-tertiary": "#ffffff","on-secondary": "#ffffff","on-primary-fixed-variant": "#7a3000","on-secondary-container": "#445d80","on-secondary-fixed-variant": "#2f486a","on-primary-fixed": "#351000","surface-bright": "#f8f9fa","on-tertiary-container": "#003064","on-error": "#ffffff","inverse-surface": "#2e3132","on-primary-container": "#572000","on-surface-variant": "#5a4136","inverse-on-surface": "#f0f1f2","primary-fixed-dim": "#ffb693","inverse-primary": "#ffb693"
+                    },
+                    "borderRadius": {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+                    "fontFamily": {"headline": ["Manrope"],"body": ["Manrope"],"label": ["Manrope"]}
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Manrope', sans-serif; }
+        .signature-gradient { background: linear-gradient(135deg, #ff6b00 0%, #a04100 100%); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<div class="flex min-h-screen">
+<aside class="hidden md:flex flex-col h-screen w-64 bg-slate-950 dark:bg-slate-900 shadow-[0px_12px_32px_rgba(0,31,63,0.06)] py-6 px-0 fixed left-0 top-0 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 signature-gradient rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div>
+<h2 class="text-orange-500 font-bold text-sm tracking-tight">System Architect</h2>
+<p class="text-slate-500 text-[10px] font-semibold uppercase">V1.0.4-EST</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 bg-orange-600 text-white font-bold rounded-none transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-manrope text-sm font-semibold tracking-normal">Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3">architecture</span>
+<span class="font-manrope text-sm font-semibold tracking-normal">Projects</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-manrope text-sm font-semibold tracking-normal">Resource Planning</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3">query_stats</span>
+<span class="font-manrope text-sm font-semibold tracking-normal">Scenario Analysis</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-manrope text-sm font-semibold tracking-normal">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 px-4 signature-gradient text-white font-bold rounded-md flex items-center justify-center gap-2 hover:opacity-90 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="text-xs uppercase tracking-widest">New Estimation</span>
+</button>
+<div class="mt-6 pt-6 border-t border-slate-800">
+<a class="flex items-center text-slate-400 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">logout</span>
+<span class="text-sm font-semibold">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 md:ml-64 flex flex-col">
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md h-16 w-full flex justify-between items-center px-8 border-b-0">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-black text-slate-900 tracking-tighter uppercase">Architectural Monolith</h1>
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-orange-600 border-b-2 border-orange-600 py-5 font-manrope uppercase tracking-wider font-bold text-[10px]" href="#">Projects</a>
+<a class="text-slate-600 py-5 font-manrope uppercase tracking-wider font-bold text-[10px] hover:text-orange-600 transition-colors" href="#">Docs</a>
+<a class="text-slate-600 py-5 font-manrope uppercase tracking-wider font-bold text-[10px] hover:text-orange-600 transition-colors" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-600 hover:bg-orange-50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-600 hover:bg-orange-50 rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-slate-200"></div>
+<button class="px-5 py-2 bg-slate-900 text-white text-[11px] font-black uppercase tracking-widest rounded-md hover:bg-slate-800 transition-transform active:scale-95">Deploy</button>
+<div class="w-8 h-8 rounded-full border-2 border-white shadow-sm bg-slate-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 text-sm">person</span>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-[1600px] mx-auto w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-md shadow-sm border-l-4 border-primary">
+<p class="text-[10px] font-extrabold uppercase tracking-widest text-secondary mb-1">Total Estimated Cost</p>
+<h3 class="text-2xl font-black text-on-surface">$4,822,500</h3>
+<div class="flex items-center mt-2 text-tertiary text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+<span>+12.4% vs Baseline</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-md shadow-sm border-l-4 border-secondary">
+<p class="text-[10px] font-extrabold uppercase tracking-widest text-secondary mb-1">Project Duration</p>
+<h3 class="text-2xl font-black text-on-surface">14 Months</h3>
+<p class="text-secondary text-[11px] font-bold mt-2">Target End: Dec 2025</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-md shadow-sm border-l-4 border-tertiary">
+<p class="text-[10px] font-extrabold uppercase tracking-widest text-secondary mb-1">Peak Headcount</p>
+<h3 class="text-2xl font-black text-on-surface">42 FTEs</h3>
+<p class="text-tertiary text-[11px] font-bold mt-2">Resource Utilization: 94%</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-md shadow-sm border-l-4 border-primary-container">
+<p class="text-[10px] font-extrabold uppercase tracking-widest text-secondary mb-1">Weekly Run Rate</p>
+<h3 class="text-2xl font-black text-on-surface">$82,400</h3>
+<p class="text-secondary text-[11px] font-bold mt-2">Monthly: $329,600</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 space-y-8">
+<section class="bg-surface-container-lowest rounded-md overflow-hidden">
+<div class="p-6 border-b-0 flex justify-between items-center bg-surface-container-low">
+<h2 class="text-sm font-black uppercase tracking-widest text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary">payments</span>Rate Optimization Analysis
+</h2>
+<span class="text-[10px] font-bold text-secondary px-2 py-1 bg-secondary-container/30 rounded">AHR/ADR COMP</span>
+</div>
+<div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+<div>
+<div class="flex justify-between items-end mb-4">
+<h4 class="text-xs font-bold text-slate-500 uppercase">Consultant vs FT Resource</h4>
+<span class="text-xs font-black text-error">+18% Gap</span>
+</div>
+<div class="space-y-6">
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<span class="text-[10px] font-bold text-secondary uppercase">Consultant Avg Hourly (AHR)</span>
+<span class="text-xs font-black text-primary">$185.00</span>
+</div>
+<div class="overflow-hidden h-2 text-xs flex rounded bg-surface-container-high">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center signature-gradient" style="width:85%"></div>
+</div>
+</div>
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<span class="text-[10px] font-bold text-secondary uppercase">Full-Time Internal Avg (ADR)</span>
+<span class="text-xs font-black text-secondary">$152.00</span>
+</div>
+<div class="overflow-hidden h-2 text-xs flex rounded bg-surface-container-high">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-secondary" style="width:65%"></div>
+</div>
+</div>
+</div>
+<p class="mt-6 text-[11px] text-slate-500 leading-relaxed italic">* Optimization required in Workstream B to align blended rates with corporate feasibility targets.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-md border-l-2 border-primary">
+<h4 class="text-xs font-bold text-secondary uppercase mb-4">Savings Potential</h4>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-medium text-slate-600">Consolidated Sourcing</span>
+<span class="text-sm font-black text-tertiary">-$420K</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-medium text-slate-600">Rate Renegotiation</span>
+<span class="text-sm font-black text-tertiary">-$115K</span>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-200 flex justify-between items-center">
+<span class="text-[11px] font-black text-on-surface uppercase">Total Opportunity</span>
+<span class="text-lg font-black text-primary">$535,000</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-surface-container-lowest rounded-md overflow-hidden">
+<div class="p-6 bg-surface-container-low flex justify-between items-center">
+<h2 class="text-sm font-black uppercase tracking-widest text-on-surface">Geographic Delivery Mix</h2>
+<div class="flex gap-4">
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-secondary rounded-sm"></div><span class="text-[10px] font-bold uppercase text-slate-500">Onshore</span></div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-primary rounded-sm"></div><span class="text-[10px] font-bold uppercase text-slate-500">Offshore</span></div>
+</div>
+</div>
+<div class="p-8">
+<div class="flex h-12 w-full rounded-md overflow-hidden shadow-inner">
+<div class="bg-secondary flex items-center justify-center text-white text-[10px] font-black" style="width: 40%">40% ONSHORE</div>
+<div class="signature-gradient flex items-center justify-center text-white text-[10px] font-black" style="width: 60%">60% OFFSHORE</div>
+</div>
+<div class="grid grid-cols-2 gap-12 mt-8">
+<div>
+<span class="text-[10px] font-extrabold text-secondary uppercase block mb-1">Key Locations</span>
+<div class="space-y-2">
+<div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">United States (HQ)</span><span class="font-bold text-on-surface">32%</span></div>
+<div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">United Kingdom</span><span class="font-bold text-on-surface">8%</span></div>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-extrabold text-primary uppercase block mb-1">Global Centers</span>
+<div class="space-y-2">
+<div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">India (Bangalore)</span><span class="font-bold text-on-surface">45%</span></div>
+<div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">Poland (Krakow)</span><span class="font-bold text-on-surface">15%</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="lg:col-span-4 space-y-8">
+<section class="bg-surface-container-lowest p-6 rounded-md shadow-sm">
+<h2 class="text-xs font-black uppercase tracking-widest text-on-surface mb-6">Workstream Allocation</h2>
+<div class="space-y-8">
+<div class="group"><div class="flex justify-between mb-2"><span class="text-[11px] font-bold text-slate-700">Cloud Infrastructure</span><span class="text-[11px] font-black text-on-surface">$1.2M</span></div><div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden"><div class="bg-tertiary h-full group-hover:bg-primary transition-colors" style="width: 75%"></div></div></div>
+<div class="group"><div class="flex justify-between mb-2"><span class="text-[11px] font-bold text-slate-700">Data Engineering</span><span class="text-[11px] font-black text-on-surface">$850K</span></div><div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full group-hover:bg-primary transition-colors" style="width: 55%"></div></div></div>
+<div class="group"><div class="flex justify-between mb-2"><span class="text-[11px] font-bold text-slate-700">UX/UI Modernization</span><span class="text-[11px] font-black text-on-surface">$420K</span></div><div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full group-hover:bg-primary transition-colors" style="width: 30%"></div></div></div>
+<div class="group"><div class="flex justify-between mb-2"><span class="text-[11px] font-bold text-slate-700">DevOps &amp; CI/CD</span><span class="text-[11px] font-black text-on-surface">$640K</span></div><div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full group-hover:bg-primary transition-colors" style="width: 45%"></div></div></div>
+<div class="group"><div class="flex justify-between mb-2"><span class="text-[11px] font-bold text-slate-700">Security &amp; Compliance</span><span class="text-[11px] font-black text-on-surface">$380K</span></div><div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full group-hover:bg-primary transition-colors" style="width: 25%"></div></div></div>
+</div>
+</section>
+<section class="bg-surface-container-high p-6 rounded-md">
+<h2 class="text-xs font-black uppercase tracking-widest text-on-surface mb-6 flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">history</span>System Architect Logs
+</h2>
+<div class="mb-6 border-b border-slate-300 pb-4">
+<h3 class="text-[10px] font-extrabold uppercase tracking-widest text-primary mb-3 flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">chat_bubble</span>Latest Review Activity
+</h3>
+<div class="space-y-3">
+<div class="bg-white/50 p-3 rounded">
+<div class="flex justify-between items-start mb-1"><span class="text-[9px] font-black text-slate-900 uppercase">CIO REVIEW</span><span class="text-[8px] font-bold text-slate-400">1h ago</span></div>
+<p class="text-[11px] text-slate-700 italic leading-snug">"Cloud infrastructure costs for Q3 seem aggressive. Can we explore multi-cloud redundancy options for Workstream A?"</p>
+</div>
+<div class="bg-white/50 p-3 rounded">
+<div class="flex justify-between items-start mb-1"><span class="text-[9px] font-black text-slate-900 uppercase">SA APPROVAL</span><span class="text-[8px] font-bold text-slate-400">4h ago</span></div>
+<p class="text-[11px] text-slate-700 italic leading-snug">"Onshore/Offshore mix approved. Proceed with vendor rate renegotiations as planned."</p>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="text-[10px] font-extrabold uppercase tracking-widest text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">terminal</span>System Events
+</h3>
+</div>
+</div>
+<div class="space-y-4">
+<div class="hover:bg-surface-container-highest transition-colors p-3 -mx-3 rounded group cursor-default"><span class="text-[9px] font-bold text-secondary uppercase block mb-1">Oct 24, 14:32</span><p class="text-[11px] text-on-surface leading-snug">Updated "Workstream A" baseline with 3 additional Node.js specialists.</p></div>
+<div class="hover:bg-surface-container-highest transition-colors p-3 -mx-3 rounded group cursor-default"><span class="text-[9px] font-bold text-secondary uppercase block mb-1">Oct 24, 11:05</span><p class="text-[11px] text-on-surface leading-snug">Offshore ratio adjusted from 55% to 60% following Steering approval.</p></div>
+<div class="hover:bg-surface-container-highest transition-colors p-3 -mx-3 rounded group cursor-default"><span class="text-[9px] font-bold text-secondary uppercase block mb-1">Oct 23, 16:48</span><p class="text-[11px] text-on-surface leading-snug">Critical alert: Resource leak detected in scenario "Aggressive Modernization".</p></div>
+<div class="hover:bg-surface-container-highest transition-colors p-3 -mx-3 rounded group cursor-default border-l-2 border-primary"><span class="text-[9px] font-bold text-primary uppercase block mb-1">Oct 23, 09:15</span><p class="text-[11px] text-on-surface leading-snug font-bold">New Estimation Snapshot "V1.0.4-EST" committed by lead architect.</p></div>
+</div>
+<button class="w-full mt-6 py-2 border border-slate-300 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-white hover:text-primary transition-colors">View Full Audit Trail</button>
+</section>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-surface-container-highest flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Confidence Score</span>
+<div class="flex items-center gap-2">
+<div class="flex gap-0.5">
+<div class="w-3 h-1.5 bg-primary rounded-full"></div>
+<div class="w-3 h-1.5 bg-primary rounded-full"></div>
+<div class="w-3 h-1.5 bg-primary rounded-full"></div>
+<div class="w-3 h-1.5 bg-primary rounded-full"></div>
+<div class="w-3 h-1.5 bg-slate-300 rounded-full"></div>
+</div>
+<span class="text-xs font-black">High (82%)</span>
+</div>
+</div>
+</div>
+<div class="text-[10px] font-medium text-slate-500 max-w-md text-right leading-tight">
+Proprietary Calculation Engine &copy; 2024 Architectural Monolith. All financial figures are based on internal HR cost centers and vendor-provided Rate Cards.
+</div>
+</div>
+</div>
+</main>
+</div>
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t-0 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-50 flex justify-around items-center h-16 px-4">
+<a class="flex flex-col items-center gap-1 text-orange-600" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-[9px] font-black uppercase">Dashboard</span></a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#"><span class="material-symbols-outlined text-[20px]">architecture</span><span class="text-[9px] font-black uppercase">Projects</span></a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="text-[9px] font-black uppercase">Metrics</span></a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="text-[9px] font-black uppercase">Settings</span></a>
+</div>
+</body></html>
