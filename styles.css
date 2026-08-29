@@ -220,6 +220,67 @@ p {
     line-height: 1.8;
 }
 
+.programnorth-spotlight {
+    margin: 20px 0 24px;
+    padding: 18px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.programnorth-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.programnorth-brand:hover {
+    opacity: 0.82;
+}
+
+.programnorth-brand:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.programnorth-logo {
+    width: 44px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+.programnorth-name {
+    color: #111827;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.programnorth-accent {
+    color: #2563eb;
+}
+
+.programnorth-tagline {
+    margin: 0 0 8px;
+    color: #1f2937;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.programnorth-description {
+    margin: 0;
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
 .focus-subtitle {
     font-size: 0.95rem;
     font-weight: 600;
@@ -493,6 +554,18 @@ footer {
     
     h2 {
         font-size: 1.5rem;
+    }
+
+    .programnorth-spotlight {
+        padding: 16px;
+    }
+
+    .programnorth-logo {
+        width: 40px;
+    }
+
+    .programnorth-name {
+        font-size: 1.2rem;
     }
     
     .social-links {
